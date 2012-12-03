@@ -1,6 +1,6 @@
 package hackathon.studymap.dao;
 
-import hackathon.studymap.model.StudyArea;
+import hackathon.studymap.jpa.model.StudyArea;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

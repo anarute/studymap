@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="studymapPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>hackathon.studymap.model.StudySubject</class>
-    <class>hackathon.studymap.model.StudyGroupSchedule</class>
-    <class>hackathon.studymap.model.StudyMainSubject</class>
-    <class>hackathon.studymap.model.StudyGroup</class>
-    <class>hackathon.studymap.model.StudyGroupPost</class>
-    <class>hackathon.studymap.model.StudyGroupMember</class>
-    <class>hackathon.studymap.model.User</class>
-    <class>hackathon.studymap.model.StudyArea</class>
+    <class>hackathon.studymap.jpa.model.User</class>
+    <class>hackathon.studymap.jpa.model.StudyGroup</class>
+    <class>hackathon.studymap.jpa.model.StudyGroupMember</class>
+    <class>hackathon.studymap.jpa.model.StudyMainSubject</class>
+    <class>hackathon.studymap.jpa.model.StudyArea</class>
+    <class>hackathon.studymap.jpa.model.StudySubject</class>
+    <class>hackathon.studymap.jpa.model.StudyGroupSchedule</class>
+    <class>hackathon.studymap.jpa.model.StudyGroupPost</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>

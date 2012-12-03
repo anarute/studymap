@@ -1,5 +1,5 @@
 
-package hackathon.studymap.model;
+package hackathon.studymap.jpa.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
