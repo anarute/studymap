@@ -17,7 +17,9 @@ $config['fileUpload'] = true;
 
 $facebook = new Facebook($config);
 
-echo $facebook->getUser();
+$user = $facebook->getUser();
+
+echo "Get User ID:" . $user;
 
 
 ?>
