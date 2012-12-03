@@ -3,6 +3,11 @@
 create database study_map;
 use study_map;
 
+drop table if exists study_group_member;
+drop table if exists study_group_schedule;
+drop table if exists study_group_post;
+drop table if exists study_group;
+drop table if exists users;
 drop table if exists study_subject;
 drop table if exists study_main_subject;
 drop table if exists study_area;
@@ -11,7 +16,7 @@ study_area_id int(10) unsigned not null auto_increment,
 description varchar(100) not null,
 unique key uk_study_area_description(description),
 primary key(study_area_id)
-);
+) DEFAULT CHARSET=utf8;
 
 insert into study_area (description) values ('Humanas'),('Biologicas'),('Exatas');
 
@@ -23,7 +28,7 @@ study_area_id int(10) unsigned not null,
 description varchar(100) not null,
 unique key uk_study_main_subject(description),
 constraint fk_main_subjetc_area foreign key fk_main_subjetc_area (study_area_id) references study_area (study_area_id),
-primary key(study_main_subject_id));
+primary key(study_main_subject_id)) DEFAULT CHARSET=utf8;
 
 insert into study_main_subject (study_area_id,description) values (1, 'Sociologia'),(1,'Administração'),(1,'Filosofia');
 insert into study_main_subject (study_area_id,description) values (2, 'Medicina'),(2,'Biologia'),(2,'Farmácia');
@@ -38,7 +43,7 @@ description varchar(100) not null,
 unique key uk_study_main_subject(description),
 constraint fk_subject_main_subject foreign key fk_subject_main_subject (study_main_subject_id) references study_main_subject (study_main_subject_id),
 primary key(study_subject_id)
-);
+) DEFAULT CHARSET=utf8;
 
 set @study_main_subject_id=(select study_main_subject_id from study_main_subject where description='Informática');
 select @study_main_subject_id;
@@ -54,7 +59,7 @@ email varchar(255) not null,
 unique key uk_user_login (login),
 unique key uk_user_email (email),
 primary key (user_id)
-);
+) DEFAULT CHARSET=utf8;
 
 insert into users (login, email) values ('ana', 'anaruth@hack.com'), ('murilo', 'murilo@hach.com'), ('david', 'david@hack.com'), ('joao', 'joao@hack.com');
 
@@ -69,7 +74,7 @@ latitude float(9,6) not null,
 constraint fk_study_group_owner foreign key fk_study_group_owner (owner_id) references users (user_id),
 constraint fk_study_group_subject foreign key fk_study_group_subject (study_subject_id) references study_subject (study_subject_id),
 primary key(study_group_id)
-);
+) DEFAULT CHARSET=utf8;
 
 insert into study_group (owner_id, study_subject_id, description, longitude, latitude) values (1, 1, 'Intel Hackton Unicamp 2012', -22.813707, -47.063591);
 
@@ -82,7 +87,7 @@ constraint fk_group_member_group foreign key fk_group_member_group (study_group_
 constraint fk_group_member_user foreign key fk_group_member_user (user_id) references users (user_id),
 unique key uk_study_group_member (study_group_id, user_id),
 primary key(study_group_memeber_id)
-);
+) DEFAULT CHARSET=utf8;
 
 insert into study_group_member (study_group_id, user_id) values (1,2), (1,3), (1,4);
 
@@ -96,7 +101,7 @@ posted timestamp not null,
 constraint fk_study_group_post_group foreign key fk_study_group_post_group (study_group_id) references study_group (study_group_id),
 constraint fk_study_group_post_user foreign key fk_study_group_post_user (user_id) references users (user_id),
 primary key (study_group_post_id)
-);
+) DEFAULT CHARSET=utf8;
 
 insert into study_group_post (study_group_id, user_id, title, content) values (1,2,"What's up test!", "Hi, this is a test, it's alive!!!");
 
@@ -111,7 +116,8 @@ day_of_month tinyint(2),
 hour tinyint(2) not null,
 minute tinyint(2) not null,
 constraint fk_study_group_schedule_group foreign key fk_study_group_schedule_group (study_group_id) references study_group (study_group_id),
-primary key(study_group_schedule_id)) comment 'based on crontab';
+primary key(study_group_schedule_id)
+) DEFAULT CHARSET=utf8  comment 'based on crontab';
 
 
 insert into study_group_schedule (study_group_id, year, month, day_of_month, hour, minute) values (1,2012,12,3,9,0);
