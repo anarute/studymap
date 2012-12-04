@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="studyGroupMemberEdit"/></title></head>
 <body><h2><fmt:message key="studyGroupMemberEdit"/></h2>
-    <c:if  test="${not empty param.studyAreaId}">
+    <c:if  test="${not empty param.studyGroupMemeberId}">
         <c:out value="edit"/>
         <%
             String studyGroupMemeberId = request.getParameter("studyGroupMemeberId");

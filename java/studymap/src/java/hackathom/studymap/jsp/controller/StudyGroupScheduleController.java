@@ -2,16 +2,16 @@ package hackathom.studymap.jsp.controller;
 
 import br.com.jcomputacao.dao.DaoException;
 import br.com.jcomputacao.util.StringUtil;
-import hackathon.studymap.jdbc.model.StudyGroupSchedule;
-import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import br.com.jcomputacao.util.web.HttpServletHelper;
 import hackathom.studymap.jdbc.dao.StudyGroupScheduleDao;
+import hackathon.studymap.jdbc.model.StudyGroupSchedule;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,6 +40,12 @@ public class StudyGroupScheduleController extends HttpServletHelper {
     public List<StudyGroupSchedule> getList() throws DaoException {
         StudyGroupScheduleDao dao = new StudyGroupScheduleDao();
         List<StudyGroupSchedule> list = dao.listar();
+        return list;
+    }
+    
+    public List<StudyGroupSchedule> getListByStudyGroup(Integer studyGroup) throws DaoException {
+        StudyGroupScheduleDao dao = new StudyGroupScheduleDao();
+        List<StudyGroupSchedule> list = dao.listar("WHERE S.study_group_id=?", new String[]{studyGroup.toString()});
         return list;
     }
 
@@ -129,7 +135,7 @@ public class StudyGroupScheduleController extends HttpServletHelper {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *
