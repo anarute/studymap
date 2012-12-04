@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class StudyArea implements Serializable {
 
-    private int studyAreaId;
+    private Integer studyAreaId;
     private String description;
 
-    public int getStudyAreaId() {
+    public Integer getStudyAreaId() {
         return this.studyAreaId;
     }
 
-    public void setStudyAreaId(int studyAreaId) {
+    public void setStudyAreaId(Integer studyAreaId) {
         this.studyAreaId = studyAreaId;
     }
 

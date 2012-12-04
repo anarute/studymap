@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class StudyGroupMember implements Serializable {
 
-    private int studyGroupMemeberId;
+    private Integer studyGroupMemeberId;
     private int studyGroupId;
     private int userId;
 
     
-    public int getStudyGroupMemeberId() {
+    public Integer getStudyGroupMemeberId() {
         return this.studyGroupMemeberId;
     }
 
-    public void setStudyGroupMemeberId(int studyGroupMemeberId) {
+    public void setStudyGroupMemeberId(Integer studyGroupMemeberId) {
         this.studyGroupMemeberId = studyGroupMemeberId;
     }
 

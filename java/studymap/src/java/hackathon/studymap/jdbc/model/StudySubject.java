@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class StudySubject implements Serializable {
 
-    private int studySubjectId;
+    private Integer studySubjectId;
     private int studyMainSubjectId;
     private String description;
 
     
-    public int getStudySubjectId() {
+    public Integer getStudySubjectId() {
         return this.studySubjectId;
     }
 
-    public void setStudySubjectId(int studySubjectId) {
+    public void setStudySubjectId(Integer studySubjectId) {
         this.studySubjectId = studySubjectId;
     }
 

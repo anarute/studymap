@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class StudyGroupPost implements Serializable {
 
-    private int studyGroupPostId;
+    private Integer studyGroupPostId;
     private int studyGroupId;
     private int userId;
     private String title;
@@ -13,11 +13,11 @@ public class StudyGroupPost implements Serializable {
     private Date posted;
 
     
-    public int getStudyGroupPostId() {
+    public Integer getStudyGroupPostId() {
         return this.studyGroupPostId;
     }
 
-    public void setStudyGroupPostId(int studyGroupPostId) {
+    public void setStudyGroupPostId(Integer studyGroupPostId) {
         this.studyGroupPostId = studyGroupPostId;
     }
 

@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
+import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.StudyAreaDao;
 import hackathon.studymap.jdbc.model.StudyArea;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import br.com.jcomputacao.util.web.HttpServletHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "study_areaServlet", urlPatterns = {"/s/study_area"})
+@WebServlet(name = "study_areaServlet", urlPatterns = {"/studyArea/salvar"})
 public class StudyAreaController extends HttpServletHelper {
+    
+    private StudyArea model;
+    
+    public StudyArea getModel() {
+        if(model==null) {
+            model = new StudyArea();
+        }
+        return model;
+    }
+    
+    public boolean load(Integer studyAreaId) throws DaoException {
+        StudyAreaDao d = new StudyAreaDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
+
+    public List<StudyArea> getList() throws DaoException {
+        StudyAreaDao d = new StudyAreaDao();
+        List<StudyArea> rs = d.listar();
+        return rs;
+    }
 
     private List<String> validate(StudyArea studyArea) {
         List<String> list = new ArrayList<String>();
@@ -43,15 +65,21 @@ public class StudyAreaController extends HttpServletHelper {
             String studyAreaId = request.getParameter("study_area_id");
             String description = request.getParameter("description");
 
-            StudyArea studyArea = null;
+            StudyArea studyArea = new StudyArea();
 
             studyArea.setStudyAreaId(convertToInt(studyAreaId, request));
             studyArea.setDescription(description);
             List<String> msgList = validate(studyArea);
             if (msgList.isEmpty()) {
+                StudyAreaDao d = new StudyAreaDao();
+                if (StringUtil.isNotNull(studyAreaId)) {
+                    d.alterar(studyArea);
+                } else {
+                    d.salvar(studyArea);
+                }
                 msg.append(");studyArea created with ID=");
                 request.setAttribute("message", msg);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyArea/list.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/studyArea/list.jsp");
                 dispatcher.forward(request, response);
             } else {
                 for (String m : msgList) {
@@ -61,12 +89,16 @@ public class StudyAreaController extends HttpServletHelper {
                     msg.append(m);
                 }
                 request.setAttribute("message", msg.toString());
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyArea/edit.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/studyArea/edit.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (ParseException ex) {
             ex.printStackTrace(System.err);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyArea/edit.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/studyArea/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/studyArea/edit.jsp");
             dispatcher.forward(request, response);
         }
     }

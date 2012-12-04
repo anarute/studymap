@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class StudyGroupSchedule implements Serializable {
 
-    private int studyGroupScheduleId;
+    private Integer studyGroupScheduleId;
     private int studyGroupId;
     private Integer dayOfWeek;
     private Integer year;
@@ -14,11 +14,11 @@ public class StudyGroupSchedule implements Serializable {
     private int minute;
 
     
-    public int getStudyGroupScheduleId() {
+    public Integer getStudyGroupScheduleId() {
         return this.studyGroupScheduleId;
     }
 
-    public void setStudyGroupScheduleId(int studyGroupScheduleId) {
+    public void setStudyGroupScheduleId(Integer studyGroupScheduleId) {
         this.studyGroupScheduleId = studyGroupScheduleId;
     }
 

@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page contentType="text/html" pageEncoding="ISO-8859-1"%><jsp:useBean id="bancoView" class="br.com.jcomputacao.convivere.view.BancoWeb" scope="request"/>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%><jsp:useBean id="bancoView" class="hackathom.studymap.jsp.controller.BancoWeb" scope="request"/>
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="studyGroupScheduleList"/></title></head>

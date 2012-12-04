@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
+import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.StudyGroupPostDao;
 import hackathon.studymap.jdbc.model.StudyGroupPost;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import br.com.jcomputacao.util.web.HttpServletHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "study_group_postServlet", urlPatterns = {"/s/study_group_post"})
+@WebServlet(name = "study_group_postServlet", urlPatterns = {"/studyGroupPost/salvar"})
 public class StudyGroupPostController extends HttpServletHelper  {
+    
+    private StudyGroupPost model;
+    
+    public StudyGroupPost getModel() {
+        if(model==null) {
+            model = new StudyGroupPost();
+        }
+        return model;
+    }
+        
+    public boolean load(Integer studyAreaId) throws DaoException {
+        StudyGroupPostDao d = new StudyGroupPostDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
+    
+    public List<StudyGroupPost> getList() throws DaoException {
+        StudyGroupPostDao dao = new StudyGroupPostDao();
+        List<StudyGroupPost> list = dao.listar();
+        return list;
+    }
 
     private List<String> validate(StudyGroupPost studyGroupPost) {
         List<String> list = new ArrayList<String>();
@@ -45,16 +67,22 @@ public class StudyGroupPostController extends HttpServletHelper  {
             String content = request.getParameter("content");
             String posted = request.getParameter("posted");
 
-            StudyGroupPost studyGroupPost = null;
+            StudyGroupPost studyGroupPost = new StudyGroupPost();
 
             studyGroupPost.setStudyGroupPostId(convertToInt(studyGroupPostId, request));
             studyGroupPost.setStudyGroupId(convertToInt(studyGroupId, request));
-            studyGroupPost.setUserId(convertToInt(userId, request));
+            studyGroupPost.setStudyGroupPostId(convertToInt(userId, request));
             studyGroupPost.setTitle(title);
             studyGroupPost.setContent(content);
             studyGroupPost.setPosted(convertToDate(posted, request));
             List<String> msgList = validate(studyGroupPost);
             if (msgList.isEmpty()) {
+                StudyGroupPostDao d = new StudyGroupPostDao();
+                if (StringUtil.isNull(studyGroupId)) {
+                    d.salvar(studyGroupPost);
+                } else {
+                    d.alterar(studyGroupPost);
+                }
                 msg.append(");studyGroupPost created with ID=");
                 request.setAttribute("message", msg);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupPost/list.jsp");
@@ -73,6 +101,10 @@ public class StudyGroupPostController extends HttpServletHelper  {
         } catch (ParseException ex) {
             ex.printStackTrace(System.err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupPost/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/edit.jsp");
             dispatcher.forward(request, response);
         }
     }

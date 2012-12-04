@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page contentType="text/html" pageEncoding="ISO-8859-1"%><jsp:useBean id="bancoView" class="br.com.jcomputacao.convivere.view.BancoWeb" scope="request"/>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<jsp:useBean id="ctrl" class="hackathom.studymap.jsp.controller.StudyGroupPostController" scope="request"/>
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="studyGroupPostList"/></title></head>
@@ -18,9 +19,9 @@
 </tr>
 </thead>
 <tbody class="ui-widget-content">
-<c:forEach var="it" items="${requestScope.cooperadosListagem.cooperados}">
+<c:forEach var="it" items="${requestScope.ctrl.list}">
 <tr>
-<td>${it.studyGroupPostId}</td>
+<td><a href="<c:url value="/jsp/studyGroupPost/edit.jsp?studyGroupPostId="/>${it.studyGroupPostId}">${it.studyGroupPostId}</a></td>
 <td>${it.studyGroupId}</td>
 <td>${it.userId}</td>
 <td>${it.title}</td>

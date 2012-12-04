@@ -1,11 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page contentType="text/html" pageEncoding="ISO-8859-1"%><jsp:useBean id="bancoView" class="br.com.jcomputacao.convivere.view.BancoWeb" scope="request"/>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<jsp:useBean id="bancoView" class="hackathom.studymap.jsp.controller.UserController" scope="request"/>
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="userEdit"/></title></head>
 <body><h2><fmt:message key="userEdit"/></h2>
 <%@include file="/jsp/menu.jsp"%>
+<c:if  test="${not empty param.userId}">
+            <c:out value="edit"/>
+            <%
+                String studyGroupId = request.getParameter("userId");
+                System.out.println("userId : " + studyGroupId);
+                out.println("userId : " + studyGroupId);
+            %>
+        </c:if>
+        <c:if test="${empty param.studyAreaId}">
+            <c:out value="new"/>
+        </c:if>
 <form name="user" action="user/salvar" method="POST">
 <fieldset>
 <label for="userId"><fmt:message key="userId"/></label>
@@ -22,7 +34,7 @@
 <input type="text" name="posts" maxlength="1"/>
 <label for="gold"><fmt:message key="gold"/></label>
 <input type="text" name="gold" maxlength="17"/>
-<input type="submit" value="<fmt:message key="salvar"/>">
+<input type="submit" value="<fmt:message key="save"/>">
 </fieldset>
 </form>
 </body></html>

@@ -12,7 +12,7 @@ public class StudyGroupMemberDao extends Dao<StudyGroupMember> {
 
     static {
         chavePrimariaDescritor = new ChavePrimariaDescritor();
-        chavePrimariaDescritor.addCampo("cargoId", Integer.class, "cargo_id", java.sql.Types.INTEGER);
+        chavePrimariaDescritor.addCampo("studyGroupMemeberId", Integer.class, "study_group_memeber_id", java.sql.Types.INTEGER);
         chavePrimariaDescritor.setAutogerada(true);
     }
 

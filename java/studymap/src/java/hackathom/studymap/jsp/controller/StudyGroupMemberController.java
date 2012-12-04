@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
+import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.StudyGroupMemberDao;
 import hackathon.studymap.jdbc.model.StudyGroupMember;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import br.com.jcomputacao.util.web.HttpServletHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "study_group_memberServlet", urlPatterns = {"/s/study_group_member"})
+@WebServlet(name = "study_group_memberServlet", urlPatterns = {"/studyGroupMember/salvar"})
 public class StudyGroupMemberController extends HttpServletHelper {
+    
+    private StudyGroupMember model;
+    
+    public List<StudyGroupMember> getList() throws DaoException {
+        StudyGroupMemberDao dao = new StudyGroupMemberDao();
+        List<StudyGroupMember> list = dao.listar();
+        return list;
+    }
+    
+    public StudyGroupMember getModel() {
+        if(model==null) {
+            model = new StudyGroupMember();
+        }
+        return model;
+    }
+        
+    public boolean load(Integer studyAreaId) throws DaoException {
+        StudyGroupMemberDao d = new StudyGroupMemberDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
 
     private List<String> validate(StudyGroupMember studyGroupMember) {
         List<String> list = new ArrayList<String>();
@@ -44,13 +66,19 @@ public class StudyGroupMemberController extends HttpServletHelper {
             String studyGroupId = request.getParameter("study_group_id");
             String userId = request.getParameter("user_id");
 
-            StudyGroupMember studyGroupMember = null;
+            StudyGroupMember studyGroupMember = new StudyGroupMember();
 
             studyGroupMember.setStudyGroupMemeberId(convertToInt(studyGroupMemeberId, request));
             studyGroupMember.setStudyGroupId(convertToInt(studyGroupId, request));
-            studyGroupMember.setUserId(convertToInt(userId, request));
+            studyGroupMember.setStudyGroupMemeberId(convertToInt(userId, request));
             List<String> msgList = validate(studyGroupMember);
             if (msgList.isEmpty()) {
+                StudyGroupMemberDao d = new StudyGroupMemberDao();
+                if (StringUtil.isNull(studyGroupId)) {
+                    d.salvar(studyGroupMember);
+                } else {
+                    d.alterar(studyGroupMember);
+                }
                 msg.append(");studyGroupMember created with ID=");
                 request.setAttribute("message", msg);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/list.jsp");
@@ -67,6 +95,10 @@ public class StudyGroupMemberController extends HttpServletHelper {
                 dispatcher.forward(request, response);
             }
         } catch (ParseException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
             ex.printStackTrace(System.err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/edit.jsp");
             dispatcher.forward(request, response);
