@@ -117,3 +117,5 @@ primary key(study_group_schedule_id)) comment 'based on crontab';
 insert into study_group_schedule (study_group_id, year, month, day_of_month, hour, minute) values (1,2012,12,3,9,0);
 insert into study_group_schedule (study_group_id, year, month, day_of_month, hour, minute) values (1,2012,12,4,9,0);
 
+alter table users add column fb_user_id bigint(20) not null, add column fb_username varchar(200) not null, add column creation datetime;
+
