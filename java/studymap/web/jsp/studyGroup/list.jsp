@@ -2,9 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <jsp:useBean id="ctrl" class="hackathom.studymap.jsp.controller.StudyGroupController" scope="request"/>
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><fmt:message key="studyGroupList"/></title></head>
+<!DOCTYPE html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title><fmt:message key="studyGroupList"/></title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="../css/main.css" />
+        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+        <script src="../js/main.js"></script>
+        
+        <!--meta name=viewport content='width=device-width'-->
+        <link rel="stylesheet" href="../css/font-awesome.css">
+        <script type="text/javascript" src="../js/map.js"></script>
+</head>
 <body><h2><fmt:message key="studyGroupList"/></h2>
 <%@include file="/jsp/menu.jsp" %>
 <table class="ui-widget" style="border-collapse: collapse;">
