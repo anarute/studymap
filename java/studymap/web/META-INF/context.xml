@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/studymap">
-    <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" 
-              maxActive="2" maxIdle="1" maxWait="-1" 
-              name="jdbc/studymap" 
-              type="javax.sql.DataSource" 
-              url="jdbc:mysql://localhost/study_map?zeroDateTimeBehavior=convertToNull" 
-              username="root" password=""/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="2" maxIdle="1" maxWait="-1" name="jdbc/studymap" password="" type="javax.sql.DataSource" url="jdbc:mysql://localhost/study_map?zeroDateTimeBehavior=convertToNull" username="root"/>
 </Context>

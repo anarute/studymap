@@ -11,6 +11,7 @@
 <thead class="ui-widget-header">
 <tr>
 <th><fmt:message key="studyGroupPostId"/></th>
+<th><fmt:message key="studyGroupPostId"/></th>
 <th><fmt:message key="studyGroupId"/></th>
 <th><fmt:message key="userId"/></th>
 <th><fmt:message key="title"/></th>
@@ -21,7 +22,8 @@
 <tbody class="ui-widget-content">
 <c:forEach var="it" items="${requestScope.ctrl.list}">
 <tr>
-<td><a href="<c:url value="/jsp/studyGroupPost/edit.jsp?studyGroupPostId="/>${it.studyGroupPostId}">${it.studyGroupPostId}</a></td>
+    <td><img src="http://graph.facebook.com/${it.fbUsername}/picture?type=small"/><p>${it.login}</p></td>
+<td><a href="/studymap/jsp/studyGroupPost/edit.jsp?studyGroupPostId=${it.studyGroupPostId}"/>${it.studyGroupPostId}</a></td>
 <td>${it.studyGroupId}</td>
 <td>${it.userId}</td>
 <td>${it.title}</td>
