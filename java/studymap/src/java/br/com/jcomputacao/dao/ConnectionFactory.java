@@ -41,7 +41,7 @@ public class ConnectionFactory {
             try {
                 Context initCtx = new InitialContext();
                 Context envCtx = (Context) initCtx.lookup("java:comp/env");
-                DataSource ds = (DataSource) envCtx.lookup("jdbc/convivereweb");
+                DataSource ds = (DataSource) envCtx.lookup("jdbc/studymap");
                 return ds.getConnection();
             } catch (NamingException ex) {
                 ex.printStackTrace(System.err);

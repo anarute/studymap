@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class StudyGroup implements Serializable {
 
-    private int studyGroupId;
+    private Integer studyGroupId;
     private int ownerId;
     private int studySubjectId;
     private String description;
     private double longitude;
     private double latitude;
 
-    public int getStudyGroupId() {
+    public Integer getStudyGroupId() {
         return this.studyGroupId;
     }
 
-    public void setStudyGroupId(int studyGroupId) {
+    public void setStudyGroupId(Integer studyGroupId) {
         this.studyGroupId = studyGroupId;
     }
 

@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
 import hackathon.studymap.jdbc.model.StudyGroupSchedule;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.StudyGroupScheduleDao;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "study_group_scheduleServlet", urlPatterns = {"/s/study_group_schedule"})
+@WebServlet(name = "study_group_scheduleServlet", urlPatterns = {"/studyGroupScheduleController/salvar"})
 public class StudyGroupScheduleController extends HttpServletHelper {
+    
+    private StudyGroupSchedule model;
+    
+    public StudyGroupSchedule getModel() {
+        if(model==null) {
+            model = new StudyGroupSchedule();
+        }
+        return model;
+    }
+        
+    public boolean load(Integer studyAreaId) throws DaoException {
+        StudyGroupScheduleDao d = new StudyGroupScheduleDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
+    
+    public List<StudyGroupSchedule> getList() throws DaoException {
+        StudyGroupScheduleDao dao = new StudyGroupScheduleDao();
+        List<StudyGroupSchedule> list = dao.listar();
+        return list;
+    }
 
     private List<String> validate(StudyGroupSchedule studyGroupSchedule) {
         List<String> list = new ArrayList<String>();
@@ -49,7 +71,7 @@ public class StudyGroupScheduleController extends HttpServletHelper {
             String hour = request.getParameter("hour");
             String minute = request.getParameter("minute");
 
-            StudyGroupSchedule studyGroupSchedule = null;
+            StudyGroupSchedule studyGroupSchedule = new StudyGroupSchedule();
 
             studyGroupSchedule.setStudyGroupScheduleId(convertToInt(studyGroupScheduleId, request));
             studyGroupSchedule.setStudyGroupId(convertToInt(studyGroupId, request));
@@ -61,6 +83,12 @@ public class StudyGroupScheduleController extends HttpServletHelper {
             studyGroupSchedule.setMinute(convertToInt(minute, request));
             List<String> msgList = validate(studyGroupSchedule);
             if (msgList.isEmpty()) {
+                StudyGroupScheduleDao d = new StudyGroupScheduleDao();
+                if (StringUtil.isNull(studyGroupId)) {
+                    d.salvar(studyGroupSchedule);
+                } else {
+                    d.alterar(studyGroupSchedule);
+                }
                 msg.append(");studyGroupSchedule created with ID=");
                 request.setAttribute("message", msg);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupSchedule/list.jsp");
@@ -79,6 +107,10 @@ public class StudyGroupScheduleController extends HttpServletHelper {
         } catch (ParseException ex) {
             ex.printStackTrace(System.err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupSchedule/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/edit.jsp");
             dispatcher.forward(request, response);
         }
     }

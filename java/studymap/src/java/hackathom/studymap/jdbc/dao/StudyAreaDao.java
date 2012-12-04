@@ -12,7 +12,7 @@ public class StudyAreaDao extends Dao<StudyArea> {
 
     static {
         chavePrimariaDescritor = new ChavePrimariaDescritor();
-        chavePrimariaDescritor.addCampo("cargoId", Integer.class, "cargo_id", java.sql.Types.INTEGER);
+        chavePrimariaDescritor.addCampo("studyAreaId", Integer.class, "study_area_id", java.sql.Types.INTEGER);
         chavePrimariaDescritor.setAutogerada(true);
     }
 

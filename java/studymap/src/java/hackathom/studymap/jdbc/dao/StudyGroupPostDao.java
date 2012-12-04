@@ -12,7 +12,7 @@ public class StudyGroupPostDao extends Dao<StudyGroupPost> {
 
     static {
         chavePrimariaDescritor = new ChavePrimariaDescritor();
-        chavePrimariaDescritor.addCampo("cargoId", Integer.class, "cargo_id", java.sql.Types.INTEGER);
+        chavePrimariaDescritor.addCampo("studyGroupPostId", Integer.class, "study_group_post_id", java.sql.Types.INTEGER);
         chavePrimariaDescritor.setAutogerada(true);
     }
 

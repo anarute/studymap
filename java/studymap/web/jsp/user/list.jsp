@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page contentType="text/html" pageEncoding="ISO-8859-1"%><jsp:useBean id="bancoView" class="br.com.jcomputacao.convivere.view.BancoWeb" scope="request"/>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<jsp:useBean id="ctrl" class="hackathom.studymap.jsp.controller.UserController" scope="request"/>
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><fmt:message key="userList"/></title></head>
@@ -11,23 +12,15 @@
 <tr>
 <th><fmt:message key="userId"/></th>
 <th><fmt:message key="login"/></th>
-<th><fmt:message key="password"/></th>
-<th><fmt:message key="name"/></th>
-<th><fmt:message key="birthday"/></th>
-<th><fmt:message key="posts"/></th>
-<th><fmt:message key="gold"/></th>
+<th><fmt:message key="email"/></th>
 </tr>
 </thead>
 <tbody class="ui-widget-content">
-<c:forEach var="it" items="${requestScope.cooperadosListagem.cooperados}">
+<c:forEach var="it" items="${requestScope.ctrl.list}">
 <tr>
-<td>${it.userId}</td>
+<td><a href="<c:url value="/jsp/user/edit.jsp?userId="/>${it.userId}">${it.userId}</a></td>
 <td>${it.login}</td>
-<td>${it.password}</td>
-<td>${it.name}</td>
-<td>${it.birthday}</td>
-<td>${it.posts}</td>
-<td>${it.gold}</td>
+<td>${it.email}</td>
 </tr>
 </c:forEach></tbody></table>
 <%@include file="/jsp/fotter.jsp" %>

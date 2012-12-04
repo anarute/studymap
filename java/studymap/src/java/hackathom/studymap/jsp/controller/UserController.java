@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
+import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.UserDao;
 import hackathon.studymap.jdbc.model.User;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import br.com.jcomputacao.util.web.HttpServletHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,13 +19,36 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "userServlet", urlPatterns = {"/s/user"})
-public class UserController extends HttpServletHelper  {
+@WebServlet(name = "userServlet", urlPatterns = {"/user/salvar"})
+public class UserController extends HttpServletHelper {
+    
+    private User model;
+
+    public User getModel() {
+        if(model==null) {
+            model = new User();
+        }
+        return model;
+    }
+        
+    public boolean load(Integer studyAreaId) throws DaoException {
+        UserDao d = new UserDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
+    
+    public List<User> getList() throws DaoException {
+        UserDao dao = new UserDao();
+        List<User> list = dao.listar();
+        return list;
+    }
 
     private List<String> validate(User user) {
         List<String> list = new ArrayList<String>();
         return list;
-    }    /**
+    }
+
+    /**
      * Processes requests for both HTTP
      * <code>GET</code> and
      * <code>POST</code> methods.
@@ -40,30 +64,28 @@ public class UserController extends HttpServletHelper  {
             StringBuilder msg = new StringBuilder();
             String userId = request.getParameter("user_id");
             String login = request.getParameter("login");
-            String password = request.getParameter("password");
-            String name = request.getParameter("name");
-            String birthday = request.getParameter("birthday");
-            String posts = request.getParameter("posts");
-            String gold = request.getParameter("gold");
+            String email = request.getParameter("email");
 
-            User user = null;
+            User user = new User();
 
             user.setUserId(convertToInt(userId, request));
             user.setLogin(login);
-            user.setPassword(password);
-            user.setName(name);
-            user.setBirthday(convertToDateOrNull(birthday, request));
-            user.setPosts(convertToIntegerOrNull(posts, request));
-            user.setGold(convertToDoubleOrNull(gold, request));
+            user.setEmail(email);
             List<String> msgList = validate(user);
             if (msgList.isEmpty()) {
+                UserDao d = new UserDao();
+                if (StringUtil.isNull(userId)) {
+                    d.salvar(user);
+                } else {
+                    d.alterar(user);
+                }
                 msg.append(");user created with ID=");
                 request.setAttribute("message", msg);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/user/list.jsp");
                 dispatcher.forward(request, response);
             } else {
-                for(String m:msgList) {
-                    if(msg.length()>0) {
+                for (String m : msgList) {
+                    if (msg.length() > 0) {
                         msg.append("</br>");
                     }
                     msg.append(m);
@@ -75,6 +97,10 @@ public class UserController extends HttpServletHelper  {
         } catch (ParseException ex) {
             ex.printStackTrace(System.err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/user/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroupMember/edit.jsp");
             dispatcher.forward(request, response);
         }
     }

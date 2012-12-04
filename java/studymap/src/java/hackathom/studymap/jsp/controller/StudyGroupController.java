@@ -1,16 +1,17 @@
 package hackathom.studymap.jsp.controller;
 
+import br.com.jcomputacao.dao.DaoException;
+import br.com.jcomputacao.util.StringUtil;
 import hackathon.studymap.jdbc.model.StudyGroup;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import br.com.jcomputacao.util.web.HttpServletHelper;
+import hackathom.studymap.jdbc.dao.StudyGroupDao;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Murilo
  */
-@WebServlet(name = "study_groupServlet", urlPatterns = {"/s/study_group"})
+@WebServlet(name = "study_groupServlet", urlPatterns = {"/studyGroupController/salvar"})
 public class StudyGroupController extends HttpServletHelper {
+
+    private StudyGroup model;
+
+    public List<StudyGroup> getList() throws DaoException {
+        StudyGroupDao d = new StudyGroupDao();
+        List<StudyGroup> rs = d.listar();
+        return rs;
+    }
+
+    public StudyGroup getModel() {
+        if (model == null) {
+            model = new StudyGroup();
+        }
+        return model;
+    }
+
+    public boolean load(Integer studyAreaId) throws DaoException {
+        StudyGroupDao d = new StudyGroupDao();
+        model = d.buscar(studyAreaId);
+        return model != null;
+    }
 
     private List<String> validate(StudyGroup studyGroup) {
         List<String> list = new ArrayList<String>();
@@ -47,7 +69,7 @@ public class StudyGroupController extends HttpServletHelper {
             String longitude = request.getParameter("longitude");
             String latitude = request.getParameter("latitude");
 
-            StudyGroup studyGroup = null;
+            StudyGroup studyGroup = new StudyGroup();
 
             studyGroup.setStudyGroupId(convertToInt(studyGroupId, request));
             studyGroup.setOwnerId(convertToInt(ownerId, request));
@@ -57,6 +79,12 @@ public class StudyGroupController extends HttpServletHelper {
             studyGroup.setLatitude(convertToDouble(latitude, request));
             List<String> msgList = validate(studyGroup);
             if (msgList.isEmpty()) {
+                StudyGroupDao d = new StudyGroupDao();
+                if (StringUtil.isNull(studyGroupId)) {
+                    d.salvar(studyGroup);
+                } else {
+                    d.alterar(studyGroup);
+                }
                 msg.append(");studyGroup created with ID=");
                 request.setAttribute("message", msg);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroup/list.jsp");
@@ -73,6 +101,10 @@ public class StudyGroupController extends HttpServletHelper {
                 dispatcher.forward(request, response);
             }
         } catch (ParseException ex) {
+            ex.printStackTrace(System.err);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroup/edit.jsp");
+            dispatcher.forward(request, response);
+        } catch (DaoException ex) {
             ex.printStackTrace(System.err);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/s/studyGroup/edit.jsp");
             dispatcher.forward(request, response);
