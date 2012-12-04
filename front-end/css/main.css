@@ -67,3 +67,9 @@ body {
 .ui-btn-corner-all{
 	border-radius: none;
 }
+#profile{
+	display: none;
+}
+#profile_thumb{
+	width: 20px;
+}
