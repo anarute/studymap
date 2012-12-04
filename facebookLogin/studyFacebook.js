@@ -58,7 +58,6 @@
     		$("#username").html(response.username);
     		
     		foto = 'https://graph.facebook.com/' + response.username + '/picture?type=large';
-    		
 
 			$("img").attr({
 				src: foto,
