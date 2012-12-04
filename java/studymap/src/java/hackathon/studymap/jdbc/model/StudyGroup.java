@@ -7,6 +7,9 @@ public class StudyGroup implements Serializable {
     private Integer studyGroupId;
     private int ownerId;
     private int studySubjectId;
+    private String area;
+    private String mainSubject;
+    private String subject;
     private String description;
     private double longitude;
     private double latitude;
@@ -62,5 +65,29 @@ public class StudyGroup implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getMainSubject() {
+        return mainSubject;
+    }
+
+    public void setMainSubject(String mainSubject) {
+        this.mainSubject = mainSubject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

@@ -23,11 +23,15 @@
 <thead class="ui-widget-header">
 <tr>
 <th><fmt:message key="studyGroupId"/></th>
+<th><fmt:message key="area"/></th>
+<th><fmt:message key="mainSubject"/></th>
+<th><fmt:message key="subject"/></th>
 <th><fmt:message key="ownerId"/></th>
 <th><fmt:message key="studySubjectId"/></th>
 <th><fmt:message key="description"/></th>
 <th><fmt:message key="longitude"/></th>
 <th><fmt:message key="latitude"/></th>
+<th><fmt:message key="detail"/></th>
 </tr>
 </thead>
 <tbody class="ui-widget-content">
@@ -35,10 +39,14 @@
 <tr>
 <td><a href="<c:url value="/jsp/studyGroup/edit.jsp?studyGroupId="/>${it.studyGroupId}">${it.studyGroupId}</a></td>
 <td>${it.ownerId}</td>
+<td>${it.area}</td>
+<td>${it.mainSubject}</td>
+<td>${it.subject}</td>
 <td>${it.studySubjectId}</td>
 <td>${it.description}</td>
 <td>${it.longitude}</td>
 <td>${it.latitude}</td>
+<td><a href="<c:url value="/jsp/studyGroup/detail.jsp?studyGroupId="/>${it.studyGroupId}">${it.studyGroupId}</a></td>
 </tr>
 </c:forEach></tbody></table>
 <%@include file="/jsp/fotter.jsp" %>
