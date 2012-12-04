@@ -75,7 +75,7 @@
 		            loadData();
 		        	//Actions when connected
 		        }else{
-		            window.alert("Não Conectado");
+		            window.alert("Nao Conectado");
 		        	//Actions when not connected
 		        }
 		    });

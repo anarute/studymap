@@ -13,7 +13,6 @@
         <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/main.js"></script>
-        <script src="../js/studyFacebook.js"></script>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         
         <!--meta name=viewport content='width=device-width'-->
@@ -26,9 +25,11 @@
 
         <div data-role="page" id="page1">
             <div>
-                <a data-role="button" id="btn_fb" data-corners="false" data-theme="b" href="#page1">
+                <script src="../js/studyFacebook.js"></script>
+                <button data-role="button" id="btn_fb" data-corners="false" data-theme="b" onclick="login()"><i class="icon-facebook"></i> Logar</button>
+                <!--<a data-role="button" id="btn_fb" data-corners="false" data-theme="b" href="#page1">
                     <i class="icon-facebook"></i> Logar
-                </a>
+                </a>-->
             </div>
             <div>
                 <a data-role="button" id="btn_fb" data-corners="false" data-theme="c" href="index.jsp">
