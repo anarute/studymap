@@ -25,38 +25,27 @@
     <body>
 
         <div data-role="page" id="page1">
-            <div data-role="header" data-theme="c"> 
-                <h1><i class="icon-group"></i>  StudyMap</h1>
-                <div id="mini_profile">
-                    <img id="profile_thumb" src="">
-                    <span id="name"></span>
-                </div>
-            </div> 
-            <a data-role="button" id="btn_fb" data-corners="false" data-theme="b" href="#page1">
-                Login com Facebook
-            </a>
-            <div id="profile">
-                UserID: <div id="userid"></div>
-                UserName: <div id="username"></div>
-                Name: <div id="name"></div>
-                Link: <div id="link"></div>
-            </div>
-            <div data-role="fieldcontain" class="form_search">
-                <fieldset data-role="controlgroup" data-mini="true">
-                    <label for="mapfilter">
-                    </label>
-                    <input name="filter" id="mapfilter" placeholder="filtre por interesse"
-                           value="" type="search">
-                </fieldset>
-            </div>
-
-            <div id="sidebar_btn">
-                <a href="mainmenu.jsp">
-                    <i class="icon-reorder"></i>
+            <div>
+                <a data-role="button" id="btn_fb" data-corners="false" data-theme="b" href="#page1">
+                    <i class="icon-facebook"></i> Logar
                 </a>
             </div>
-            <div id="map_canvas" style="width:100%; height:100%">
+            <div>
+                <a data-role="button" id="btn_fb" data-corners="false" data-theme="c" href="index.jsp">
+                    <i class="icon-map-marker"></i> Ver mapa
+                </a>
             </div>
+            <div>
+                <a data-role="button" id="btn_fb" data-corners="false" data-theme="d" href="<c:url value="/jsp/studyArea/edit.jsp"/>">
+                    <i class="icon-plus-sign"></i> <fmt:message key="studyAreaEdit"/>
+                </a>
+            </div>
+            <div>
+                <a data-role="button" id="btn_fb" data-corners="false" data-theme="e" href="#page1">
+                    <i class="icon-screenshot"></i> Meu local
+                </a>
+            </div>
+
         </div>
         <%@include file="fotter.jsp" %>
     </body>
