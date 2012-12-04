@@ -32,7 +32,7 @@
                 </a>-->
             </div>
             <div>
-                <a data-role="button" id="btn_fb" data-corners="false" data-theme="c" href="index.jsp">
+                <a data-role="button" id="btn_fb" data-corners="false" data-theme="c" href="<c:url value="/jsp/studyGroup/view.jsp"/>">
                     <i class="icon-map-marker"></i> Ver mapa
                 </a>
             </div>
