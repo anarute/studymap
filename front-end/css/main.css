@@ -14,6 +14,7 @@
 	border-radius: 0 5px 5px 0;
 	padding-left: 5px;
 	cursor: pointer;
+	z-index: 1;
 }
 #sidebar_btn a{
 	display: block;
@@ -28,7 +29,41 @@
 	height: 100%;
 	position: absolute;
 	top: 0;
-	width: 100px;
-	left: -100px;
+	width: 50%;
+	left: -50%;
 	z-index: 1;
+}
+#main_sidebar ul{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	color: white;
+}
+#main_sidebar ul li{
+	text-shadow: none;
+	list-style: none;
+	width: 100%
+	font-size: 1.2em;
+	padding: 10px;
+	text-align: center;
+	border-bottom: 1px solid white;
+}
+
+html {
+  height: 100%
+}
+
+body { 
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#page1 {
+	height: 100%;
+}
+
+.ui-btn-corner-all{
+	border-radius: none;
 }
