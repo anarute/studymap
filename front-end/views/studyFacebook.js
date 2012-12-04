@@ -46,7 +46,6 @@
     		
     		foto = 'https://graph.facebook.com/' + response.username + '/picture?type=large';
     		
-
 			$("#profile_thumb").attr({
 				src: foto,
 				border: '0'
@@ -55,7 +54,7 @@
 		}
 
 		//Login function (call in the view)
-	  	function login() {
+	  	jQuery("#btn_fb").live('click', function {
 		    FB.login(function(response) {
 		        if (response.authResponse) {
 		            window.alert("Conectado");
