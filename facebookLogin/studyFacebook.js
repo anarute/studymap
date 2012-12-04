@@ -1,5 +1,21 @@
+	  	/*******************************************************************************************
+		*file: studyFacebook.js
+		*
+		*Description: Make the login on Facebook with the JavaScript SDK.
+		*
+		*-------------------------------------------------------------------------------------------
+	  	*Author: Joao Santos
+	  	*Create Date: 03/12/2012
+	  	********************************************************************************************/
 	  	
-	  	// Additional JS functions here
+	  	/*******************************************************************************************
+	  	*History:
+	  	*
+	  	*03-12-2012: Create the script
+	  	*04-12-2012: Create methods and add to GitHub
+	  	********************************************************************************************/
+
+	  	//Load the APP
 	  	window.fbAsyncInit = function() {
 	    	FB.init({
 	      	appId      : '173457916129382', // App ID
@@ -9,17 +25,17 @@
 	      	xfbml      : true  // parse XFBML
 	    	});
 
-	    	// Additional init code here
+	    	//Get the Login Status 
 	    	FB.getLoginStatus(function(response) {
 				if (response.status === 'connected') {
-			    	window.alert("Conectado");
-			    	testAPI();
+			    	loadData();
+			    	//Other actions if connected
 			  	} 
 			 });
 	  	};
 		
-
-	  	function testAPI() {
+	  	//Example of one function to load user information and show in the view
+	  	function loadData() {
     		window.alert('Welcome!  Fetching your information.... ');
     		FB.api('/me', function(response) {
 	        
@@ -38,11 +54,16 @@
     	});
 		}
 
+		//Login function (call in the view)
 	  	function login() {
 		    FB.login(function(response) {
 		        if (response.authResponse) {
 		            window.alert("Conectado");
+		            loadData();
+		        	//Actions when connected
+		        }else{
 		            window.alert("Não Conectado");
+		        	//Actions when not connected
 		        }
 		    });
 		}
