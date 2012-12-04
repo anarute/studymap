@@ -20,8 +20,8 @@ public class StudyGroupMemberDao extends Dao<StudyGroupMember> {
     @Override
     public String getSelect() {
         return "SELECT S.study_group_memeber_id,S.study_group_id,S.user_id\n"
-                + "U.user_id,U.login,U.fb_user_id,U.fb_username,U.creation\n"
-                + "FROM study_group_member S left join users U on S.user_id=U.user_id";
+             + "     , U.login,U.fb_user_id,U.fb_username,U.creation\n"
+             + "FROM study_group_member S left join users U on S.user_id=U.user_id";
     }
 
     @Override
