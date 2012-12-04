@@ -46,7 +46,10 @@
                     <i class="icon-screenshot"></i> Meu local
                 </a>
             </div>
-
+            
+            <div id="map_canvas" style="width:100%; height:100%">
+            </div>
+                
         </div>
         <%@include file="fotter.jsp" %>
     </body>
