@@ -29,6 +29,12 @@ public class StudyGroupMemberController extends HttpServletHelper {
         List<StudyGroupMember> list = dao.listar();
         return list;
     }
+
+    public List<StudyGroupMember> getListByStudyGroup(Integer studyGroup) throws DaoException {
+        StudyGroupMemberDao dao = new StudyGroupMemberDao();
+        List<StudyGroupMember> list = dao.listar("WHERE S.study_group_id=?", new String[]{studyGroup.toString()});
+        return list;
+    }
     
     public StudyGroupMember getModel() {
         if(model==null) {

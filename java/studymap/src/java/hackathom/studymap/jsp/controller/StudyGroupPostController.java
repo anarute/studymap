@@ -42,6 +42,12 @@ public class StudyGroupPostController extends HttpServletHelper  {
         List<StudyGroupPost> list = dao.listar();
         return list;
     }
+    
+    public List<StudyGroupPost> getListByStudyGroup(Integer studyGroup) throws DaoException {
+        StudyGroupPostDao dao = new StudyGroupPostDao();
+        List<StudyGroupPost> list = dao.listar("WHERE S.study_group_id=?", new String[]{studyGroup.toString()});
+        return list;
+    }
 
     private List<String> validate(StudyGroupPost studyGroupPost) {
         List<String> list = new ArrayList<String>();
