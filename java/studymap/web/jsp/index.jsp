@@ -14,6 +14,7 @@
         <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/main.js"></script>
+        <script src="../js/studyFacebook.js"></script>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         
         <!--meta name=viewport content='width=device-width'-->
