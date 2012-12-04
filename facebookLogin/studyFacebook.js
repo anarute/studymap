@@ -34,6 +34,19 @@
 			 });
 	  	};
 		
+	  	function savePHP(){
+        var useridPost = response.id;
+        var namePost = response.name;
+        var linkPost = response.link;
+        var usernamePost = response.username;    
+        
+        $.post("save_user.php", {userid: useridPost, name: namePost, link: linkPost, username: usernamePost},
+        	function(data){
+         		$("#resposta").html(data);
+         	}
+         	, "html");
+    	}
+
 	  	//Example of one function to load user information and show in the view
 	  	function loadData() {
     		window.alert('Welcome!  Fetching your information.... ');
