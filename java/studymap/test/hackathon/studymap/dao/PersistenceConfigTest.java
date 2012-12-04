@@ -1,11 +1,11 @@
 package hackathon.studymap.dao;
 
-import hackathon.studymap.jpa.model.StudyArea;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+//import hackathon.studymap.jpa.model.StudyArea;
+//import java.util.List;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.Persistence;
+//import javax.persistence.Query;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,14 +42,14 @@ public class PersistenceConfigTest {
 
     @Test
     public void hello() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("studymapPU");
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("StudyArea.findAll");
-        List<StudyArea> sas = query.getResultList();
-        for (StudyArea sa : sas) {
-            System.out.println(sa.toString());
-        }
-        em.close();
-        emf.close();
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("studymapPU");
+//        EntityManager em = emf.createEntityManager();
+//        Query query = em.createNamedQuery("StudyArea.findAll");
+//        List<StudyArea> sas = query.getResultList();
+//        for (StudyArea sa : sas) {
+//            System.out.println(sa.toString());
+//        }
+//        em.close();
+//        emf.close();
     }
 }
